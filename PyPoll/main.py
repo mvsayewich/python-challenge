@@ -31,35 +31,29 @@ with open(electdata, 'r', newline = '') as csvfile:
         #print(list_of_candidates)    
         #The total number of votes each candidate won
         #print(candidate_vote_counter)
-
-
+        
+file = open("pypollscript.txt","w")
+print("Poll Analysis")
 print(str(total_votes_cast) + " votes were cast.")
-print("Here is our complete list of candidates:" + str(list_of_candidates))    
-print("Here is the total of their votes: " + str(candidate_vote_counter))
-print("Here is the list of candidates and their vote percentage:")        
-
+file.write("Poll Analysis"+'\n'"--------------" '\n' + 
+           str(total_votes_cast) + " votes were cast."'\n')
+print("Here is the list of candidates, their vote percentage, and total number of votes:")
+file.write('\n'"Here is the list of candidates, their vote percentage, and total number of votes:"'\n')
 for candidate in candidate_vote_counter:
         
     candidate_votes = candidate_vote_counter.get(candidate)
     #print(candidate_votes)
         
-    print(candidate)
-    percentageofvotes = ((candidate_votes / total_votes_cast) *100) 
-    print(percentageofvotes)
-        
+    
+    percentageofvotes = round(((candidate_votes / total_votes_cast) *100),3)
+    print(candidate + ": " + str(percentageofvotes) + '% ' + '('+ str(candidate_votes) +')')
+    file.write('\n'+ candidate + ": " + str(percentageofvotes) + '% ' + '('+ str(candidate_votes) +')''\n')    
     #The winner of the election based on popular vote
     if candidate_votes > winner_votes:
         winner_votes = candidate_votes
         winner_name = candidate
             
 print("The winner of our election is: " + winner_name)
-
+file.write('\n'"The winner of our election is: " + winner_name +'\n')
 #Export a text file with the results
-file = open("pypollscript.txt","w")
-file.write("Poll Analysis"'\n'"--------------"'\n'
-           + str(total_votes_cast) + " votes were cast." +
-           '\n'"The list of candidates are + str(list_of_candidates)" +
-           '\n'"Here is the total of their votes: " + str(candidate_vote_counter) +
-           '\n'"The vote percentage for Khan was 63%, Correy was 20%, Li was 14% and O'Tooley was 3%." +
-           '\n'"The winner of the election is: " + winner_name)
 file.close()
